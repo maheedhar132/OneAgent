@@ -1,0 +1,5 @@
+#!/home/jenkins/agent/workspace/ty-python-runtime_release_3.10.x/.conan/data/python/3.10.12.20230918-124746/ci/stable/build/a09a55f6597fb1c9538dfc43baed8ff62d548109/install/bin/python3.10
+import sys
+from lib2to3.main import main
+
+sys.exit(main("lib2to3.fixes"))

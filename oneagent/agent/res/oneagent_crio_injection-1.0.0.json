@@ -1,0 +1,22 @@
+{
+    "version": "1.0.0",
+    "hook": {
+        "path": "/opt/dynatrace/oneagent/agent/lib64/oneagenthelper",
+        "args": [
+            "--oci-hook",
+            "--installdirhost",
+            "/opt/dynatrace/oneagent",
+            "--configdirhost",
+            "/var/lib/dynatrace/oneagent/agent/config",
+            "--datastoragedirhost",
+            "/var/lib/dynatrace/oneagent/datastorage",
+            "--logdirhost",
+            "/var/log/dynatrace/oneagent",
+            "--enrichmentdirhost",
+            "/var/lib/dynatrace/enrichment"
+        ]
+    },
+    "stages": [
+        "prestart"
+    ]
+}

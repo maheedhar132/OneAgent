@@ -1,0 +1,105 @@
+{
+  "@version": "1.0.0",
+  "allowed-log-paths-configuration": [
+    {
+       "directory-pattern":"/",
+       "file-pattern":"*.pem",
+       "action":"EXCLUDE"
+    },
+    {
+       "directory-pattern":"/.ssh/",
+       "file-pattern":"*",
+       "action":"EXCLUDE"
+    },
+    {
+       "directory-pattern":"/.*/",
+       "file-pattern":"*",
+       "action":"EXCLUDE"
+    },
+    {
+       "directory-pattern":"/",
+       "file-pattern":".*",
+       "action":"EXCLUDE"
+    },
+    {
+       "directory-pattern":"^/etc/**/",
+       "file-pattern":"*",
+       "action":"EXCLUDE"
+    },
+    {
+       "directory-pattern":"^/boot/**/",
+       "file-pattern":"*",
+       "action":"EXCLUDE"
+    },
+    {
+       "directory-pattern":"^/proc/**/",
+       "file-pattern":"*",
+       "action":"EXCLUDE"
+    },
+    {
+       "directory-pattern":"^/dev/**/",
+       "file-pattern":"*",
+       "action":"EXCLUDE"
+    },
+    {
+       "directory-pattern":"^/bin/**/",
+       "file-pattern":"*",
+       "action":"EXCLUDE"
+    },
+    {
+       "directory-pattern":"^/sbin/**/",
+       "file-pattern":"*",
+       "action":"EXCLUDE"
+    },
+    {
+       "directory-pattern":"^/usr/**/",
+       "file-pattern":"*",
+       "action":"EXCLUDE"
+    },
+    {
+      "directory-pattern": "/",
+      "file-pattern": "*[-.\\_]log[-.\\_]*",
+      "action": "INCLUDE"
+    },
+    {
+      "directory-pattern": "/",
+      "file-pattern": "*[-.\\_]log",
+      "action": "INCLUDE"
+    },
+    {
+      "directory-pattern": "/",
+      "file-pattern": "catalina.out*",
+      "action": "INCLUDE"
+    },
+    {
+      "directory-pattern": "/log/",
+      "file-pattern": "*",
+      "action": "INCLUDE"
+    },
+    {
+      "directory-pattern": "/log/*/",
+      "file-pattern": "*",
+      "action": "INCLUDE"
+    },
+    {
+      "directory-pattern": "/logs/",
+      "file-pattern": "*",
+      "action": "INCLUDE"
+    },
+    {
+      "directory-pattern": "/logs/*/",
+      "file-pattern": "*",
+      "action": "INCLUDE"
+    },
+    {
+      "directory-pattern": "^/var/lib/docker/containers/*/",
+      "file-pattern": "*.log",
+      "action": "INCLUDE"
+    },
+    {
+      "directory-pattern": "^/var/log/**/",
+      "file-pattern": "*",
+      "action": "INCLUDE"
+    }
+  ]
+}

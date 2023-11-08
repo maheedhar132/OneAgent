@@ -1,0 +1,13 @@
+# See: man pkg-config
+prefix=/home/jenkins/agent/workspace/ty-python-runtime_release_3.10.x/.conan/data/python/3.10.12.20230918-124746/ci/stable/build/a09a55f6597fb1c9538dfc43baed8ff62d548109/install
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: Python
+Description: Build a C extension for Python
+Requires:
+Version: 3.10
+Libs.private: -lcrypt -lpthread -ldl -lssl -lcrypto -lsqlite3 -ldl -lffi -lminizip -lz -lutil -lrt -lm
+Libs:
+Cflags: -I${includedir}/python3.10

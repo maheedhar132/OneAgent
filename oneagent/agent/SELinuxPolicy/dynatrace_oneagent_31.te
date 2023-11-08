@@ -1,0 +1,341 @@
+policy_module(dynatrace_oneagent_Policy, 1.11.0)
+type oneagent_t;
+files_type(oneagent_t)
+
+require {
+	attribute domain;
+
+	type oneagent_t;
+	type unconfined_t;
+	type tmpfs_t;
+	type init_t;
+	type initrc_t;
+	type initrc_state_t;
+	type initrc_var_run_t;
+	type random_device_t;
+	type user_tmp_t;
+	type sysctl_fs_t;
+
+	class file { open read write create append unlink getattr execute setattr rename lock execute_no_trans ioctl entrypoint };
+	class dir { open read search remove_name write add_name create getattr setattr rmdir };
+	class shm { unix_read unix_write associate read write };
+	class sock_file { open read write create append unlink getattr execute setattr };
+	class unix_stream_socket { connectto };
+	class chr_file { read write open getattr };
+	class lnk_file { read getattr };
+}
+
+# Allow all processes to traverse oneagent directories, needed for liboneagentproc.so preloading in case of read-only system library directories
+allow domain oneagent_t : dir { read getattr search };
+
+# Grant process agent permissions to /var/lib/dynatrace/enrichment
+type oneagent_enrichment_t;
+files_type(oneagent_enrichment_t)
+allow domain oneagent_enrichment_t : file { read getattr open setattr write append create };
+allow domain oneagent_enrichment_t : dir  { read getattr search setattr write add_name };
+
+# Grant process agent permissions to /var/lib/dynatrace/oneagent
+type oneagent_var_lib_t;
+files_type(oneagent_var_lib_t)
+allow domain oneagent_var_lib_t : file { read getattr open };
+allow domain oneagent_var_lib_t : dir  { read getattr search };
+
+# Grant process agent permissions to log directory
+type oneagent_log_t;
+files_type(oneagent_log_t)
+allow domain oneagent_log_t : dir { read getattr search };
+allow domain oneagent_log_t : lnk_file { read getattr };
+
+# Grant permissions for storage folders (crashreports, memorydumps, supportalerts) in data storage directory
+type oneagent_datastorage_t;
+files_type(oneagent_datastorage_t)
+
+# Grant process agent permissions to <log_directory>/process
+type oneagent_process_log_t;
+files_type(oneagent_process_log_t)
+allow domain oneagent_process_log_t : file { read getattr open setattr write append create };
+allow domain oneagent_process_log_t : dir  { read getattr search setattr write add_name };
+
+# Grant permissions to executables like oneagentdynamizer
+type oneagent_exec_t;
+files_type(oneagent_exec_t)
+
+# For executing binaries
+attribute oneagent_exec_t_allowed_app;
+allow oneagent_exec_t_allowed_app oneagent_exec_t : file { open read write create append unlink getattr execute setattr rename lock execute_no_trans ioctl entrypoint };
+
+# For code modules
+attribute oneagent_log_allowed_app;
+allow oneagent_log_allowed_app oneagent_log_t : dir  { read getattr search setattr write add_name create remove_name open };
+allow oneagent_log_allowed_app oneagent_log_t : file { open read write create append getattr setattr rename lock unlink ioctl };
+allow oneagent_log_allowed_app oneagent_log_t : lnk_file { read getattr };
+
+# For code modules
+attribute oneagent_datastorage_allowed_app;
+allow oneagent_datastorage_allowed_app oneagent_datastorage_t : dir  { read getattr search setattr write add_name create remove_name open };
+allow oneagent_datastorage_allowed_app oneagent_datastorage_t : file { open read write create append getattr setattr rename lock unlink ioctl };
+
+# For code modules
+attribute oneagent_var_lib_allowed_app;
+allow oneagent_var_lib_allowed_app oneagent_var_lib_t : sock_file { open read write create append unlink getattr execute setattr };
+allow oneagent_var_lib_allowed_app oneagent_var_lib_t : file { execute };
+
+# Generic access to oneagent files, also needed for liboneagentproc.so to be preloaded
+attribute oneagent_t_allowed_app;
+allow oneagent_t_allowed_app oneagent_t : dir { open read search remove_name write add_name create getattr setattr rmdir };
+allow oneagent_t_allowed_app oneagent_t : file { open read write create append unlink getattr execute setattr rename lock execute_no_trans ioctl };
+allow oneagent_t_allowed_app oneagent_t : lnk_file { read getattr ioctl };
+
+# For shm communication between process agent and os agent used in deployment changes detection
+attribute oneagent_shm_allowed_app;
+allow oneagent_shm_allowed_app unconfined_t : shm { unix_read unix_write associate read write };
+allow oneagent_shm_allowed_app initrc_t : shm { unix_read unix_write associate read write };
+
+# For communication between agents
+attribute oneagent_stream_socket_allowed_app;
+allow oneagent_stream_socket_allowed_app init_t : unix_stream_socket { connectto };
+allow oneagent_stream_socket_allowed_app initrc_t : unix_stream_socket { connectto };
+allow oneagent_stream_socket_allowed_app unconfined_t : unix_stream_socket { connectto };
+
+optional {
+	require {
+		type unconfined_service_t;
+	}
+	
+	# For shm communication
+	allow oneagent_shm_allowed_app unconfined_service_t : shm { unix_read unix_write associate read write };
+	# For connecting to discovery endpoint on Fedora 31
+	allow oneagent_stream_socket_allowed_app unconfined_service_t : unix_stream_socket { connectto };
+
+	# Define domain transition for OneAgent binaries executed by init (systemd)
+	type_transition init_t oneagent_t : process unconfined_service_t;
+	allow unconfined_service_t oneagent_t : file { entrypoint };
+}
+
+typeattribute init_t oneagent_t_allowed_app;
+typeattribute init_t oneagent_log_allowed_app;
+typeattribute init_t oneagent_datastorage_allowed_app;
+typeattribute init_t oneagent_exec_t_allowed_app;
+
+attribute oneagent_misc_perms;
+allow oneagent_misc_perms init_t : file { read open getattr };
+allow oneagent_misc_perms init_t : dir { search getattr };
+allow oneagent_misc_perms initrc_var_run_t : file { read open lock };
+allow oneagent_misc_perms tmpfs_t : file { open read getattr write };
+allow oneagent_misc_perms tmpfs_t : lnk_file { read };
+allow oneagent_misc_perms tmpfs_t : dir { search };
+allow oneagent_misc_perms sysctl_fs_t : file { open read getattr };
+allow oneagent_misc_perms user_tmp_t : file { open read getattr };
+allow oneagent_misc_perms user_tmp_t : dir { search };
+allow oneagent_misc_perms random_device_t : chr_file { read write open getattr };
+
+# For agent deployed via container and code modules injected into containerized applications
+optional {
+	require {
+		type container_t;
+		type container_init_t;
+		type container_runtime_t;
+	}
+
+	allow oneagent_stream_socket_allowed_app container_runtime_t : unix_stream_socket { connectto };
+
+	typeattribute container_t oneagent_log_allowed_app;
+	typeattribute container_t oneagent_datastorage_allowed_app;
+	typeattribute container_t oneagent_var_lib_allowed_app;
+	typeattribute container_t oneagent_t_allowed_app;
+	typeattribute container_t oneagent_stream_socket_allowed_app;
+	typeattribute container_t oneagent_exec_t_allowed_app;
+	typeattribute container_t oneagent_misc_perms;
+
+	typeattribute container_init_t oneagent_log_allowed_app;
+	typeattribute container_init_t oneagent_datastorage_allowed_app;
+	typeattribute container_init_t oneagent_var_lib_allowed_app;
+	typeattribute container_init_t oneagent_t_allowed_app;
+	typeattribute container_init_t oneagent_stream_socket_allowed_app;
+	typeattribute container_init_t oneagent_exec_t_allowed_app;
+	typeattribute container_init_t oneagent_misc_perms;
+
+	typeattribute container_runtime_t oneagent_exec_t_allowed_app;
+}
+
+# For unconfined
+typeattribute unconfined_t oneagent_log_allowed_app;
+typeattribute unconfined_t oneagent_datastorage_allowed_app;
+typeattribute unconfined_t oneagent_var_lib_allowed_app;
+typeattribute unconfined_t oneagent_t_allowed_app;
+typeattribute unconfined_t oneagent_stream_socket_allowed_app;
+typeattribute unconfined_t oneagent_exec_t_allowed_app;
+typeattribute unconfined_t oneagent_misc_perms;
+allow unconfined_t initrc_state_t : file { read write };
+
+# For httpd
+optional {
+	require {
+		type httpd_t;
+		class capability { fowner fsetid };
+		class process { execmem };
+	}
+
+	typeattribute httpd_t oneagent_log_allowed_app;
+	typeattribute httpd_t oneagent_datastorage_allowed_app;
+	typeattribute httpd_t oneagent_var_lib_allowed_app;
+	typeattribute httpd_t oneagent_t_allowed_app;
+	typeattribute httpd_t oneagent_shm_allowed_app;
+	typeattribute httpd_t oneagent_stream_socket_allowed_app;
+	typeattribute httpd_t oneagent_misc_perms;
+
+	# For nginx agent
+	allow httpd_t self : capability { fowner fsetid };
+	allow httpd_t self : process { execmem };
+}
+
+# For java 
+optional {
+	require {
+		type java_t;
+	}
+
+	typeattribute java_t oneagent_log_allowed_app;
+	typeattribute java_t oneagent_datastorage_allowed_app;
+	typeattribute java_t oneagent_var_lib_allowed_app;
+	typeattribute java_t oneagent_t_allowed_app;
+	typeattribute java_t oneagent_shm_allowed_app;
+	typeattribute java_t oneagent_stream_socket_allowed_app;
+	typeattribute java_t oneagent_misc_perms;
+}
+
+# For docker
+optional {
+	require {
+		type docker_t;
+		type unconfined_service_t;
+		class process { sigchld };
+	}
+
+	typeattribute docker_t oneagent_log_allowed_app;
+	typeattribute docker_t oneagent_datastorage_allowed_app;
+	typeattribute docker_t oneagent_var_lib_allowed_app;
+	typeattribute docker_t oneagent_t_allowed_app;
+	typeattribute docker_t oneagent_shm_allowed_app;
+	typeattribute docker_t oneagent_stream_socket_allowed_app;
+	typeattribute docker_t oneagent_misc_perms;
+
+	allow docker_t unconfined_service_t : process { sigchld };
+}
+
+# For svirt_lxc_net
+optional {
+	require {
+		type svirt_lxc_net_t;
+		type unconfined_service_t;
+		class process { sigchld };
+	}
+
+	typeattribute svirt_lxc_net_t oneagent_log_allowed_app;
+	typeattribute svirt_lxc_net_t oneagent_datastorage_allowed_app;
+	typeattribute svirt_lxc_net_t oneagent_var_lib_allowed_app;
+	typeattribute svirt_lxc_net_t oneagent_t_allowed_app;
+	typeattribute svirt_lxc_net_t oneagent_stream_socket_allowed_app;
+	typeattribute svirt_lxc_net_t oneagent_misc_perms;
+
+	allow svirt_lxc_net_t unconfined_service_t : process { sigchld };
+}
+
+# For mysqld
+optional {
+	require {
+		type mysqld_t;
+		type mysqld_safe_t;
+	}
+
+	typeattribute mysqld_t oneagent_log_allowed_app;
+	typeattribute mysqld_t oneagent_datastorage_allowed_app;
+	typeattribute mysqld_t oneagent_var_lib_allowed_app;
+	typeattribute mysqld_t oneagent_t_allowed_app;
+	typeattribute mysqld_t oneagent_stream_socket_allowed_app;
+	typeattribute mysqld_t oneagent_misc_perms;
+	typeattribute mysqld_safe_t oneagent_misc_perms;
+}
+
+# For oracle_db
+optional {
+	require {
+		type oracle_db_t;
+	}
+
+	typeattribute oracle_db_t oneagent_log_allowed_app;
+	typeattribute oracle_db_t oneagent_datastorage_allowed_app;
+	typeattribute oracle_db_t oneagent_var_lib_allowed_app;
+	typeattribute oracle_db_t oneagent_t_allowed_app;
+	typeattribute oracle_db_t oneagent_stream_socket_allowed_app;
+	typeattribute oracle_db_t oneagent_misc_perms;
+}
+
+# For oracle_tnslsnr
+optional {
+	require {
+		type oracle_tnslsnr_t;
+	}
+
+	typeattribute oracle_tnslsnr_t oneagent_log_allowed_app;
+	typeattribute oracle_tnslsnr_t oneagent_datastorage_allowed_app;
+	typeattribute oracle_tnslsnr_t oneagent_var_lib_allowed_app;
+	typeattribute oracle_tnslsnr_t oneagent_t_allowed_app;
+	typeattribute oracle_tnslsnr_t oneagent_stream_socket_allowed_app;
+	typeattribute oracle_tnslsnr_t oneagent_misc_perms;
+}
+
+# For tomcat
+optional {
+	require {
+		type tomcat_t;
+	}
+
+	typeattribute tomcat_t oneagent_log_allowed_app;
+	typeattribute tomcat_t oneagent_datastorage_allowed_app;
+	typeattribute tomcat_t oneagent_var_lib_allowed_app;
+	typeattribute tomcat_t oneagent_t_allowed_app;
+	typeattribute tomcat_t oneagent_shm_allowed_app;
+	typeattribute tomcat_t oneagent_stream_socket_allowed_app;
+	typeattribute tomcat_t oneagent_misc_perms;
+}
+
+# For varnishd
+optional {
+	require {
+		type varnishd_t;
+		type sysfs_t;
+		class lnk_file { getattr read };
+	}
+
+	typeattribute varnishd_t oneagent_log_allowed_app;
+	typeattribute varnishd_t oneagent_datastorage_allowed_app;
+	typeattribute varnishd_t oneagent_var_lib_allowed_app;
+	typeattribute varnishd_t oneagent_t_allowed_app;
+	typeattribute varnishd_t oneagent_stream_socket_allowed_app;
+	typeattribute varnishd_t oneagent_misc_perms;
+
+	allow varnishd_t sysfs_t : file { read open getattr };
+	allow varnishd_t sysfs_t : dir { read };
+	allow varnishd_t sysfs_t : lnk_file { getattr read };
+}
+## This section is an extension of the base policy with the permissions required 
+## by policydb v.31.
+
+require {
+	class file { map };
+}
+allow oneagent_t_allowed_app oneagent_t : file { map };
+allow oneagent_exec_t_allowed_app oneagent_exec_t : file { map };
+
+# For agent deployed via docker container on Fedora
+optional {
+	require {
+		type container_t;
+		type container_init_t;
+	}
+	allow container_t oneagent_var_lib_t : file { map };
+	allow container_t oneagent_exec_t : file { map };
+	allow container_init_t oneagent_var_lib_t : file { map };
+	allow container_init_t oneagent_exec_t : file { map };
+}

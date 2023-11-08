@@ -1,0 +1,10 @@
+#!/bin/sh
+'''exec' /home/jenkins/agent/workspace/ty-python-runtime_release_3.10.x/.conan/data/python/3.10.12.20230918-124746/ci/stable/build/a09a55f6597fb1c9538dfc43baed8ff62d548109/install/bin/python3.10 "$0" "$@"
+' '''
+# -*- coding: utf-8 -*-
+import re
+import sys
+from pip._internal.cli.main import main
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())

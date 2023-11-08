@@ -1,0 +1,2139 @@
+[
+  {
+    "dir": "/opt",
+    "skipUnexpectedFiles": true,
+    "access": 755,
+    "contains": [
+      {
+        "dir": "dynatrace",
+        "skipUnexpectedFiles": true,
+        "access": 755,
+        "contains": [
+          {
+            "globallyReadableDir": "oneagent",
+            "access": 755,
+            "owner": {
+              "linux_x86": "root:root",
+              "linux_ppcle": "root:root",
+              "aix_ppc": "root:system",
+              "linux_s390": "root:root",
+              "linux_arm": "root:root"
+            },
+            "ignoreUnexpectedStartingWith": "log",
+            "contains": [
+              {
+                "dir": "plugin_deployment",
+                "skipInContainerOrDisabledAutoInjection": true,
+                "access": 755,
+                "os": [
+                  "linux_x86",
+                  "linux_ppcle"
+                ],
+                "owner": {
+                  "linux_x86": "root:root",
+                  "linux_ppcle": "root:root"
+                }
+              },
+              {
+                "dir": "agent",
+                "ignoreUnexpectedStartingWith": ["processagent", "dt_fips_disabled.flag"],
+                "access": 755,
+                "owner": {
+                  "linux_x86": [
+                    "root:<agent_group>",
+                    "root:root"
+                  ],
+                  "linux_ppcle": [
+                    "root:<agent_group>",
+                    "root:root"
+                  ],
+                  "aix_ppc": "root:system",
+                  "linux_s390": [
+                    "root:<agent_group>",
+                    "root:root"
+                  ],
+                  "linux_arm": [
+                    "root:<agent_group>",
+                    "root:root"
+                  ]
+                },
+                "contains": [
+                  {
+                    "dir": "authorizedkeys",
+                    "access": 755,
+                    "owner": {
+                      "linux_x86": "root:<agent_group>",
+                      "linux_ppcle": "root:<agent_group>",
+                      "aix_ppc": "root:system",
+                      "linux_s390": "root:<agent_group>",
+                      "linux_arm": "root:<agent_group>"
+                    },
+                    "contains": [
+                      {
+                        "dir": "autoupdate",
+                        "access": 755,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "aix_ppc": "root:system",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        },
+                        "contains": [
+                          {
+                            "file": "cacert.pem",
+                            "access": 644,
+                            "owner": {
+                              "linux_x86": "root:<agent_group>",
+                              "linux_ppcle": "root:<agent_group>",
+                              "aix_ppc": "root:system",
+                              "linux_s390": "root:<agent_group>",
+                              "linux_arm": "root:<agent_group>"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "dir": "bin",
+                    "access": 755,
+                    "owner": {
+                      "linux_x86": "root:<agent_group>",
+                      "linux_ppcle": "root:<agent_group>",
+                      "aix_ppc": "root:system",
+                      "linux_s390": "root:<agent_group>",
+                      "linux_arm": "root:<agent_group>"
+                    },
+                    "contains": [
+                      {
+                        "link": "current",
+                        "skipUnexpectedFiles": true,
+                        "access": 755,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "aix_ppc": "root:system",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "dir": "<version>",
+                        "access": 755,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "aix_ppc": "root:system",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        },
+                        "contains": [
+                          {
+                            "dir": "any",
+                            "access": 755,
+                            "owner": {
+                              "linux_x86": "root:<agent_group>",
+                              "linux_ppcle": "root:<agent_group>",
+                              "aix_ppc": "root:system",
+                              "linux_s390": "root:<agent_group>",
+                              "linux_arm": "root:<agent_group>"
+                            },
+                            "contains": [
+                              {
+                                "dir": "java",
+                                "access": 755,
+                                "owner": {
+                                  "linux_x86": "root:<agent_group>",
+                                  "linux_ppcle": "root:<agent_group>",
+                                  "aix_ppc": "root:system",
+                                  "linux_s390": "root:<agent_group>",
+                                  "linux_arm": "root:<agent_group>"
+                                },
+                                "contains": [
+                                  {
+                                    "file": [
+                                      "oneagentjava.addons.jar",
+                                      "oneagentjava.jar",
+                                      "oneagentjava.8.jar",
+                                      "oneagentjava.11.jar",
+                                      "oneagentjava.17.jar",
+                                      "oneagentjava.rmi.jar",
+                                      "oneagentjava.sql.jar",
+                                      "ruleset",
+                                      "runtimeConfiguration"
+                                    ],
+                                    "access": 644,
+                                    "owner": {
+                                      "linux_x86": "root:<agent_group>",
+                                      "linux_ppcle": "root:<agent_group>",
+                                      "aix_ppc": "root:system",
+                                      "linux_s390": "root:<agent_group>",
+                                      "linux_arm": "root:<agent_group>"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "dir": "dotnet",
+                                "access": 755,
+                                "os": ["linux_x86", "linux_arm"],
+                                "owner": "root:<agent_group>",
+                                "contains": [
+                                  {
+                                    "file": [
+                                      "oneagentdotnet.zip",
+                                      "ruleset",
+                                      "runtimeConfiguration"
+                                    ],
+                                    "access": 644,
+                                    "owner": "root:<agent_group>"
+                                  }
+                                ]
+                              },
+                              {
+                                "dir": "nodejs",
+                                "skipUnexpectedFiles": true,
+                                "access": 755,
+                                "os": [
+                                  "linux_x86",
+                                  "linux_ppcle",
+                                  "linux_s390",
+                                  "linux_arm"
+                                ],
+                                "owner": "root:<agent_group>",
+                                "contains": [
+                                  {
+                                    "file": [
+                                      "nodejsagent.js",
+                                      "package.json"
+                                    ],
+                                    "access": 644,
+                                    "owner": "root:<agent_group>"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "dir": "linux-x86-32",
+                            "os": "linux_x86",
+                            "access": 755,
+                            "owner": "root:<agent_group>",
+                            "contains": [
+                              {
+                                "file": [
+                                  "liboneagentloader.so",
+                                  "liboneagentjava.so",
+                                  "liboneagentapache.so",
+                                  "liboneagentproc.so",
+                                  "liboneagentphpng.so",
+                                  "liboneagentsdk.so"
+                                ],
+                                "access": 644,
+                                "owner": "root:<agent_group>"
+                              },
+                              {
+                                "file": [
+                                  "liboneagentloader.so.hmac",
+                                  "liboneagentjava.so.hmac",
+                                  "liboneagentapache.so.hmac",
+                                  "liboneagentproc.so.hmac",
+                                  "liboneagentphpng.so.hmac",
+                                  "liboneagentsdk.so.hmac"
+                                ],
+                                "access": 644,
+                                "owner": "root:<agent_group>"
+                              }
+                            ]
+                          },
+                          {
+                            "dir": "linux-x86-64",
+                            "os": "linux_x86",
+                            "access": 755,
+                            "owner": "root:<agent_group>",
+                            "contains": [
+                              {
+                                "file": [
+                                  "libcontainerinstrumentation.so",
+                                  "libdwarf.so",
+                                  "libelf.so.1",
+                                  "liboneagentdotnet.so",
+                                  "liboneagentgo.so",
+                                  "liboneagentloader.so",
+                                  "liboneagentloader.lel",
+                                  "liboneagentmb.so",
+                                  "liboneagentopentracing.so",
+                                  "libotbridge_clang_libcpp_otabi2.so",
+                                  "libotbridge_clang_libstdcpp_otabi2.so",
+                                  "libotbridge_gcc_libstdcpp_otabi2.so",
+                                  "liboneagentjava.so",
+                                  "liboneagentapache.so",
+                                  "liboneagentproc.so",
+                                  "liboneagentphpng.so",
+                                  "liboneagentnginx.so",
+                                  "liboneagentsdk.so",
+                                  "nginx-offsets.json",
+                                  "nginx-structlayouts.json",
+                                  "oneagentnode_64.node",
+                                  "oneagentnode_72.node",
+                                  "oneagentnode_83.node",
+                                  "oneagentnode_93.node",
+                                  "oneagentnode_108.node",
+                                  "oneagentnode_111.node",
+                                  "oneagentnode_115.node"
+                                ],
+                                "access": 644,
+                                "owner": "root:<agent_group>"
+                              },
+                              {
+                                "file": [
+                                  "libcontainerinstrumentation.so.hmac",
+                                  "liboneagentdotnet.so.hmac",
+                                  "liboneagentgo.so.hmac",
+                                  "liboneagentloader.so.hmac",
+                                  "liboneagentloader.lel.hmac",
+                                  "liboneagentmb.so.hmac",
+                                  "liboneagentopentracing.so.hmac",
+                                  "liboneagentjava.so.hmac",
+                                  "liboneagentapache.so.hmac",
+                                  "liboneagentproc.so.hmac",
+                                  "liboneagentphpng.so.hmac",
+                                  "liboneagentnginx.so.hmac",
+                                  "liboneagentsdk.so.hmac",
+                                  "oneagentnode_64.node.hmac",
+                                  "oneagentnode_72.node.hmac",
+                                  "oneagentnode_83.node.hmac",
+                                  "oneagentnode_93.node.hmac",
+                                  "oneagentnode_108.node.hmac",
+                                  "oneagentnode_111.node.hmac",
+                                  "oneagentnode_115.node.hmac"
+                                ],
+                                "access": 644,
+                                "owner": "root:<agent_group>"
+                              }
+                            ]
+                          },
+                          {
+                            "dir": "linux-musl-x86-64",
+                            "os": "linux_x86",
+                            "access": 755,
+                            "owner": "root:<agent_group>",
+                            "contains": [
+                              {
+                                "file": [
+                                  "libdwarf.so",
+                                  "libelf.so.1",
+                                  "liboneagentdotnet.so",
+                                  "liboneagentgo.so",
+                                  "liboneagentloader.so",
+                                  "liboneagentjava.so",
+                                  "liboneagentapache.so",
+                                  "liboneagentphpng.so",
+                                  "liboneagentnginx.so",
+                                  "nginx-offsets.json",
+                                  "nginx-structlayouts.json",
+                                  "oneagentnode_64.node",
+                                  "oneagentnode_72.node",
+                                  "oneagentnode_83.node",
+                                  "oneagentnode_93.node",
+                                  "oneagentnode_108.node",
+                                  "oneagentnode_111.node",
+                                  "oneagentnode_115.node"
+                                ],
+                                "access": 644,
+                                "owner": "root:<agent_group>"
+                              },
+                              {
+                                "file": [
+                                  "liboneagentdotnet.so.hmac",
+                                  "liboneagentgo.so.hmac",
+                                  "liboneagentloader.so.hmac",
+                                  "liboneagentjava.so.hmac",
+                                  "liboneagentapache.so.hmac",
+                                  "liboneagentphpng.so.hmac",
+                                  "liboneagentnginx.so.hmac",
+                                  "oneagentnode_64.node.hmac",
+                                  "oneagentnode_72.node.hmac",
+                                  "oneagentnode_83.node.hmac",
+                                  "oneagentnode_93.node.hmac",
+                                  "oneagentnode_108.node.hmac",
+                                  "oneagentnode_111.node.hmac",
+                                  "oneagentnode_115.node.hmac"
+                                ],
+                                "access": 644,
+                                "owner": "root:<agent_group>"
+                              }
+                            ]
+                          },
+                          {
+                            "dir": "linux-ppcle-64",
+                            "os": "linux_ppcle",
+                            "access": 755,
+                            "owner": "root:<agent_group>",
+                            "contains": [
+                              {
+                                "file": [
+                                  "libdwarf.so",
+                                  "libelf.so.1",
+                                  "liboneagentapache.so",
+                                  "liboneagentjava.so",
+                                  "liboneagentloader.so",
+                                  "liboneagentnginx.so",
+                                  "liboneagentproc.so",
+                                  "nginx-offsets.json",
+                                  "nginx-structlayouts.json",
+                                  "oneagentnode_64.node",
+                                  "oneagentnode_72.node",
+                                  "oneagentnode_83.node",
+                                  "oneagentnode_93.node",
+                                  "oneagentnode_108.node",
+                                  "oneagentnode_111.node",
+                                  "oneagentnode_115.node"
+                                ],
+                                "access": 644,
+                                "owner": "root:<agent_group>"
+                              },
+                              {
+                                "file": [
+                                  "liboneagentapache.so.hmac",
+                                  "liboneagentjava.so.hmac",
+                                  "liboneagentloader.so.hmac",
+                                  "liboneagentnginx.so.hmac",
+                                  "liboneagentproc.so.hmac",
+                                  "oneagentnode_64.node.hmac",
+                                  "oneagentnode_72.node.hmac",
+                                  "oneagentnode_83.node.hmac",
+                                  "oneagentnode_93.node.hmac",
+                                  "oneagentnode_108.node.hmac",
+                                  "oneagentnode_111.node.hmac",
+                                  "oneagentnode_115.node.hmac"
+                                ],
+                                "access": 644,
+                                "owner": "root:<agent_group>"
+                              }
+                            ]
+                          },
+                          {
+                            "dir": "linux-s390-32",
+                            "os": "linux_s390",
+                            "access": 755,
+                            "owner": "root:<agent_group>",
+                            "contains": [
+                              {
+                                "file": [
+                                  "liboneagentapache.so",
+                                  "liboneagentjava.so",
+                                  "liboneagentloader.so",
+                                  "liboneagentproc.so"
+                                ],
+                                "access": 644,
+                                "owner": "root:<agent_group>"
+                              },
+                              {
+                                "file": [
+                                  "liboneagentapache.so.hmac",
+                                  "liboneagentjava.so.hmac",
+                                  "liboneagentloader.so.hmac",
+                                  "liboneagentproc.so.hmac"
+                                ],
+                                "access": 644,
+                                "owner": "root:<agent_group>"
+                              }
+                            ]
+                          },
+                          {
+                            "dir": "linux-s390-64",
+                            "os": "linux_s390",
+                            "access": 755,
+                            "owner": "root:<agent_group>",
+                            "contains": [
+                              {
+                                "file": [
+                                  "liboneagentapache.so",
+                                  "liboneagentjava.so",
+                                  "liboneagentloader.so",
+                                  "liboneagentloader.lel",
+                                  "liboneagentmb.so",
+                                  "liboneagentproc.so",
+                                  "oneagentnode_64.node",
+                                  "oneagentnode_72.node",
+                                  "oneagentnode_83.node",
+                                  "oneagentnode_93.node",
+                                  "oneagentnode_108.node",
+                                  "oneagentnode_111.node",
+                                  "oneagentnode_115.node"
+                                ],
+                                "access": 644,
+                                "owner": "root:<agent_group>"
+                              },
+                              {
+                                "file": [
+                                  "liboneagentapache.so.hmac",
+                                  "liboneagentjava.so.hmac",
+                                  "liboneagentloader.so.hmac",
+                                  "liboneagentloader.lel.hmac",
+                                  "liboneagentmb.so.hmac",
+                                  "liboneagentproc.so.hmac",
+                                  "oneagentnode_64.node.hmac",
+                                  "oneagentnode_72.node.hmac",
+                                  "oneagentnode_83.node.hmac",
+                                  "oneagentnode_93.node.hmac",
+                                  "oneagentnode_108.node.hmac",
+                                  "oneagentnode_111.node.hmac",
+                                  "oneagentnode_115.node.hmac"
+                                ],
+                                "access": 644,
+                                "owner": "root:<agent_group>"
+                              }
+                            ]
+                          },
+                          {
+                            "dir": "linux-arm-64",
+                            "os": "linux_arm",
+                            "access": 755,
+                            "owner": "root:<agent_group>",
+                            "contains": [
+                              {
+                                "file": [
+                                  "libdwarf.so",
+                                  "libelf.so.1",
+                                  "liboneagentdotnet.so",
+                                  "liboneagentapache.so",
+                                  "liboneagentjava.so",
+                                  "liboneagentloader.so",
+                                  "liboneagentproc.so",
+                                  "liboneagentphpng.so",
+                                  "liboneagentnginx.so",
+                                  "nginx-offsets.json",
+                                  "nginx-structlayouts.json",
+                                  "oneagentnode_64.node",
+                                  "oneagentnode_72.node",
+                                  "oneagentnode_83.node",
+                                  "oneagentnode_93.node",
+                                  "oneagentnode_108.node",
+                                  "oneagentnode_111.node",
+                                  "oneagentnode_115.node"
+                                ],
+                                "access": 644,
+                                "owner": "root:<agent_group>"
+                              },
+                              {
+                                "file": [
+                                  "liboneagentdotnet.so.hmac",
+                                  "liboneagentapache.so.hmac",
+                                  "liboneagentjava.so.hmac",
+                                  "liboneagentloader.so.hmac",
+                                  "liboneagentproc.so.hmac",
+                                  "liboneagentphpng.so.hmac",
+                                  "liboneagentnginx.so.hmac",
+                                  "oneagentnode_64.node.hmac",
+                                  "oneagentnode_72.node.hmac",
+                                  "oneagentnode_83.node.hmac",
+                                  "oneagentnode_93.node.hmac",
+                                  "oneagentnode_108.node.hmac",
+                                  "oneagentnode_111.node.hmac",
+                                  "oneagentnode_115.node.hmac"
+                                ],
+                                "access": 644,
+                                "owner": "root:<agent_group>"
+                              }
+                            ]
+                          },
+                          {
+                            "dir": "aix-ppc-32",
+                            "os": "aix_ppc",
+                            "access": 755,
+                            "owner": "root:system",
+                            "contains": [
+                              {
+                                "file": [
+                                  "liboneagentapache.so",
+                                  "liboneagentjava.so",
+                                  "liboneagentloader.so",
+                                  "liboneagentproc.so"
+                                ],
+                                "access": 644,
+                                "owner": "root:system"
+                              },
+                              {
+                                "file": [
+                                  "liboneagentapache.so.hmac",
+                                  "liboneagentjava.so.hmac",
+                                  "liboneagentloader.so.hmac",
+                                  "liboneagentproc.so.hmac"
+                                ],
+                                "access": 644,
+                                "owner": "root:system"
+                              }
+                            ]
+                          },
+                          {
+                            "dir": "aix-ppc-64",
+                            "os": "aix_ppc",
+                            "access": 755,
+                            "owner": "root:system",
+                            "contains": [
+                              {
+                                "file": [
+                                  "liboneagentapache.so",
+                                  "liboneagentjava.so",
+                                  "liboneagentloader.so",
+                                  "liboneagentloader.lel",
+                                  "liboneagentmb.so",
+                                  "liboneagentproc.so"
+                                ],
+                                "access": 644,
+                                "owner": "root:system"
+                              },
+                              {
+                                "file": [
+                                  "liboneagentapache.so.hmac",
+                                  "liboneagentjava.so.hmac",
+                                  "liboneagentloader.so.hmac",
+                                  "liboneagentloader.lel.hmac",
+                                  "liboneagentmb.so.hmac",
+                                  "liboneagentproc.so.hmac"
+                                ],
+                                "access": 644,
+                                "owner": "root:system"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "dir": "conf",
+                    "access": 755,
+                    "ignoreUnexpectedStartingWith": "backup_apport_config",
+                    "owner": {
+                      "linux_x86": "root:<agent_group>",
+                      "linux_ppcle": "root:<agent_group>",
+                      "aix_ppc": "root:system",
+                      "linux_s390": "root:<agent_group>",
+                      "linux_arm": "root:<agent_group>"
+                    },
+                    "contains": [
+                      {
+                        "file": [
+                          "ruxitagentnetwork.conf",
+                          "watchdog.conf",
+                          "ruxitserver.pem",
+                          "ruxitserverfull.pem"
+                        ],
+                        "access": 644,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "aix_ppc": "root:system",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": "oneagent.conf",
+                        "access": 644
+                      },
+                      {
+                        "file": "original_core_pattern",
+                        "access": 644,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle",
+                          "linux_s390",
+                          "linux_arm"
+                        ],
+                        "skipInContainerOrDisabledAutoInjection": true
+                      },
+                      {
+                        "file": "extensions.conf",
+                        "os": [
+                          "linux_x86",
+                          "aix_ppc"
+                        ],
+                        "access": 644,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "aix_ppc": "root:system"
+                        }
+                      },
+                      {
+                        "file": "securityRulesLoganalytics.json",
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle",
+                          "linux_arm",
+                          "aix_ppc"
+                        ],
+                        "access": 644,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>",
+                          "aix_ppc": "root:system"
+                        }
+                      },
+                      {
+                        "file": "dt-extensibility-root.cert.pem",
+                        "access": 644,
+                        "os": "linux_x86",
+                        "owner": {
+                          "linux_x86": "root:<agent_group>"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "dir": "datasources",
+                    "skipInContainerOrDisabledAutoInjection": true,
+                    "os": "linux_x86",
+                    "access": 755,
+                    "owner": "root:<agent_group>",
+                    "contains": [
+                      {
+                        "dir": "statsd",
+                        "access": 755,
+                        "owner": "root:<agent_group>",
+                        "contains": [
+                          {
+                            "file": "ds.json",
+                            "access": 644,
+                            "owner": "root:<agent_group>"
+                          },
+                          {
+                            "file": "oneagentsourcestatsd",
+                            "access": 750,
+                            "owner": "root:<agent_group>"
+                          }
+                        ]
+                      },
+                      {
+                        "dir": "prometheus",
+                        "access": 755,
+                        "owner": "root:<agent_group>",
+                        "contains": [
+                          {
+                            "file": "ds.json",
+                            "access": 644,
+                            "owner": "root:<agent_group>"
+                          },
+                          {
+                            "file": "oneagentsourceprometheus",
+                            "access": 750,
+                            "owner": "root:<agent_group>"
+                          }
+                        ]
+                      },
+                      {
+                        "dir": "python",
+                        "access": 755,
+                        "os": "linux_x86",
+                        "owner": "root:<agent_group>",
+                        "contains": [
+                          {
+                            "file": "ds.json",
+                            "access": 644,
+                            "owner": "root:<agent_group>"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "dir": "initscripts",
+                    "access": 755,
+                    "owner": {
+                      "linux_x86": "root:<agent_group>",
+                      "linux_ppcle": "root:<agent_group>",
+                      "aix_ppc": "root:system",
+                      "linux_s390": "root:<agent_group>",
+                      "linux_arm": "root:<agent_group>"
+                    },
+                    "contains": [
+                      {
+                        "file": "oneagent",
+                        "access": 755,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "aix_ppc": "root:system",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "file": "installer.version",
+                    "access": 644,
+                    "owner": {
+                      "linux_x86": "root:<agent_group>",
+                      "linux_ppcle": "root:<agent_group>",
+                      "aix_ppc": "root:system",
+                      "linux_s390": "root:<agent_group>",
+                      "linux_arm": "root:<agent_group>"
+                    }
+                  },
+                  {
+                    "file": "agent.state",
+                    "access": 644,
+                    "owner": {
+                      "linux_x86": [
+                        "root:root",
+                        "<agent_user>:<agent_group>"
+                      ],
+                      "linux_ppcle": [
+                        "root:root",
+                        "<agent_user>:<agent_group>"
+                      ],
+                      "aix_ppc": "root:system",
+                      "linux_s390": [
+                        "root:root",
+                        "<agent_user>:<agent_group>"
+                      ],
+                      "linux_arm": [
+                        "root:root",
+                        "<agent_user>:<agent_group>"
+                      ]
+                    }
+                  },
+                  {
+                    "dir": "lib",
+                    "access": 755,
+                    "os": [
+                      "linux_x86",
+                      "linux_s390",
+                      "aix_ppc"
+                    ],
+                    "owner": {
+                      "linux_x86": "root:<agent_group>",
+                      "linux_s390": "root:<agent_group>",
+                      "aix_ppc": "root:system"
+                    },
+                    "contains": [
+                      {
+                        "os": "linux_x86",
+                        "file": "oneagentdumpproc",
+                        "access": 755,
+                        "owner": "root:<agent_group>"
+                      },
+                      {
+                        "os": "linux_x86",
+                        "file": "oneagentdumpproc.hmac",
+                        "access": 644,
+                        "owner": "root:<agent_group>"
+                      },
+                      {
+                        "os": "aix_ppc",
+                        "file": "liboneagentproc.so",
+                        "access": 644,
+                        "owner": "root:system"
+                      },
+                      {
+                        "os": [
+                          "linux_s390",
+                          "linux_x86"
+                        ],
+                        "file": [
+                          "liboneagentaudit.so"
+                        ],
+                        "access": 644,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_s390": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "os": [
+                          "linux_x86",
+                          "linux_s390",
+                          "aix_ppc"
+                        ],
+                        "file": "oneagentinstallaction",
+                        "access": 750,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_s390": "root:<agent_group>",
+                          "aix_ppc": "root:system"
+                        }
+                      },
+                      {
+                        "os": [
+                          "linux_x86",
+                          "linux_s390",
+                          "aix_ppc"
+                        ],
+                        "file": "oneagentinstallaction.hmac",
+                        "access": 644,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_s390": "root:<agent_group>",
+                          "aix_ppc": "root:system"
+                        }
+                      },
+                      {
+                        "file": "oneagentpreinjectcheck",
+                        "access": 750,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_s390": "root:<agent_group>",
+                          "aix_ppc": "root:system"
+                        }
+                      },
+                      {
+                        "file": "oneagentpreinjectcheck.hmac",
+                        "access": 644,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_s390": "root:<agent_group>",
+                          "aix_ppc": "root:system"
+                        }
+                      },
+                      {
+                        "file": "oneagentkmodloader",
+                        "access": 750,
+                        "os": "aix_ppc",
+                        "owner": "root:system"
+                      }
+                    ]
+                  },
+                  {
+                    "dir": "lib64",
+                    "access": 755,
+                    "owner": {
+                      "linux_x86": "root:<agent_group>",
+                      "linux_ppcle": "root:<agent_group>",
+                      "aix_ppc": "root:system",
+                      "linux_s390": "root:<agent_group>",
+                      "linux_arm": "root:<agent_group>"
+                    },
+                    "contains": [
+                      {
+                        "file": [
+                          "oneagentos",
+                          "oneagentwatchdog",
+                          "oneagentnetwork",
+                          "oneagentinstallaction",
+                          "oneagentpreinjectcheck"
+                        ],
+                        "access": 750,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "aix_ppc": "root:system",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": [
+                          "oneagentos.hmac",
+                          "oneagentwatchdog.hmac",
+                          "oneagentnetwork.hmac",
+                          "oneagentinstallaction.hmac",
+                          "oneagentpreinjectcheck.hmac"
+                        ],
+                        "access": 644,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "aix_ppc": "root:system",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": "oneagentdumpproc",
+                        "access": 755,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle",
+                          "linux_s390",
+                          "linux_arm"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": "oneagentdumpproc.hmac",
+                        "access": 644,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle",
+                          "linux_s390",
+                          "linux_arm"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": [
+                          "oneagentloganalytics"
+                        ],
+                        "access": 750,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle",
+                          "linux_arm",
+                          "aix_ppc"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>",
+                          "aix_ppc": "root:system"
+                        }
+                      },
+                      {
+                        "file": "oneagentplugin",
+                        "skipInContainerOrDisabledAutoInjection": true,
+                        "access": 750,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": [
+                          "oneagentloganalytics.hmac"
+                        ],
+                        "access": 644,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle",
+                          "linux_arm",
+                          "aix_ppc"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>",
+                          "aix_ppc": "root:system"
+                        }
+                      },
+                      {
+                        "file": "oneagentplugin.hmac",
+                        "skipInContainerOrDisabledAutoInjection": true,
+                        "access": 644,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": "oneagentnettracer",
+                        "access": 750,
+                        "os": [
+                          "linux_x86",
+                          "linux_arm"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": "nettracer-bpf.o",
+                        "access": 644,
+                        "os": [
+                          "linux_x86",
+                          "linux_arm"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": [
+                          "oneagentosconfig",
+                          "oneagentdmidecode",
+                          "oneagentmntconstat"
+                        ],
+                        "access": 750,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle",
+                          "linux_s390",
+                          "linux_arm"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": [
+                          "oneagentosconfig.hmac",
+                          "oneagentdmidecode.hmac",
+                          "oneagentmntconstat.hmac"
+                        ],
+                        "access": 644,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle",
+                          "linux_s390",
+                          "linux_arm"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": "oneagenthelper",
+                        "access": 750,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle",
+                          "linux_arm"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": "oneagenthelper.hmac",
+                        "access": 644,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle",
+                          "linux_arm"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": [
+                          "libpython3.so",
+                          "libpython3.*.so.1.0"
+                        ],
+                        "access": 644,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": "liboneagentplugin.so",
+                        "skipInContainerOrDisabledAutoInjection": true,
+                        "access": 644,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": "liboneagentplugin.so.hmac",
+                        "skipInContainerOrDisabledAutoInjection": true,
+                        "access": 644,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": "libelf.so.1",
+                        "access": 644,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle",
+                          "linux_arm"
+                        ],
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": "oneagentruncwrapper",
+                        "access": 644,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle",
+                          "linux_s390",
+                          "linux_arm"
+                        ],
+                        "owner": "root:<agent_group>"
+                      },
+                      {
+                        "file": "oneagentruncwrapper.hmac",
+                        "access": 644,
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle",
+                          "linux_s390",
+                          "linux_arm"
+                        ],
+                        "owner": "root:<agent_group>"
+                      },
+                      {
+                        "file": "oneagentkmod",
+                        "access": 644,
+                        "os": "aix_ppc",
+                        "owner": "root:system"
+                      },
+                      {
+                        "file": "liboneagentproc.so",
+                        "access": 644,
+                        "os": "aix_ppc",
+                        "owner": "root:system"
+                      },
+                      {
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle",
+                          "linux_s390",
+                          "linux_arm"
+                        ],
+                        "file": "liboneagentaudit.so",
+                        "access": 644,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "file": "oneagenteventstracer",
+                        "os": "linux_x86",
+                        "access": 750,
+                        "owner": "root:<agent_group>"
+                      },
+                      {
+                        "file": "oneagentextensions",
+                        "os": [
+                          "linux_x86",
+                          "aix_ppc"
+                        ],
+                        "access": 750,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "aix_ppc": "root:system"
+                        }
+                      },
+                      {
+                        "file": "pluginsdockerutil",
+                        "skipInContainerOrDisabledAutoInjection": true,
+                        "os": "linux_x86",
+                        "access": 750,
+                        "owner": "root:<agent_group>"
+                      },
+                      {
+                        "file": "oneagentextensions.hmac",
+                        "os": [
+                          "linux_x86",
+                          "aix_ppc"
+                        ],
+                        "access": 644,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "aix_ppc": "root:system"
+                        }
+                      },
+                      {
+                        "file": "oneagentdynamizer",
+                        "os": "linux_x86",
+                        "access": 755,
+                        "owner": "root:<agent_group>"
+                      },
+                      {
+                        "file": "oneagentdynamizer.hmac",
+                        "os": "linux_x86",
+                        "access": 644,
+                        "owner": "root:<agent_group>"
+                      },
+                      {
+                        "os": "linux_x86",
+                        "file": "liboneagentdynamizer.so",
+                        "access": 644,
+                        "owner": "root:<agent_group>"
+                      },
+                      {
+                        "os": "linux_x86",
+                        "file": "liboneagentdynamizer.so.hmac",
+                        "access": 644,
+                        "owner": "root:<agent_group>"
+                      }
+                    ]
+                  },
+                  {
+                    "dir": "libmusl64",
+                    "access": 755,
+                    "os": "linux_x86",
+                    "owner": "root:<agent_group>",
+                    "contains": [
+                      {
+                        "file": "oneagentdynamizer",
+                        "access": 755,
+                        "owner": "root:<agent_group>"
+                      },
+                      {
+                        "file": "oneagentdynamizer.hmac",
+                        "access": 644,
+                        "owner": "root:<agent_group>"
+                      },
+                      {
+                        "file": "liboneagentdynamizer.so",
+                        "access": 644,
+                        "owner": "root:<agent_group>"
+                      },
+                      {
+                        "file": "liboneagentdynamizer.so.hmac",
+                        "access": 644,
+                        "owner": "root:<agent_group>"
+                      }
+                    ]
+                  },
+                  {
+                    "dir": "plugin",
+                    "skipInContainerOrDisabledAutoInjection": true,
+                    "access": 755,
+                    "os": [
+                      "linux_x86",
+                      "linux_ppcle"
+                    ],
+                    "owner": "root:<agent_group>",
+                    "contains": [
+                      {
+                        "file": [
+                          "engine.zip",
+                          "engine.zip.sig",
+                          "engine.zip.sig.tsr"
+                        ],
+                        "access": 644
+                      },
+                      {
+                        "dir": "plugins",
+                        "skipUnexpectedFiles": true,
+                        "access": 755,
+                        "owner": "root:<agent_group>"
+                      },
+                      {
+                        "dir": [
+                          "python64",
+                          "python3.*"
+                        ],
+                        "skipUnexpectedFiles": true,
+                        "access": 755,
+                        "owner": "root:<agent_group>"
+                      }
+                    ]
+                  },
+                  {
+                    "os": [
+                      "linux_x86",
+                      "linux_ppcle",
+                      "linux_s390",
+                      "linux_arm"
+                    ],
+                    "link": "rdp",
+                    "access": 755,
+                    "owner": {
+                      "linux_x86": "root:<agent_group>",
+                      "linux_ppcle": "root:<agent_group>",
+                      "linux_s390": "root:<agent_group>",
+                      "linux_arm": "root:<agent_group>"
+                    },
+                    "skipInContainerOrDisabledAutoInjection": true
+                  },
+                  {
+                    "dir": "res",
+                    "access": 755,
+                    "owner": {
+                      "linux_x86": "root:<agent_group>",
+                      "linux_ppcle": "root:<agent_group>",
+                      "linux_s390": "root:<agent_group>",
+                      "linux_arm": "root:<agent_group>",
+                      "aix_ppc": "root:system"
+                    },
+                    "contains": [
+                      {
+                        "file": [
+                          "oneagent_crio_injection-0.1.0.json",
+                          "oneagent_crio_injection-1.0.0.json"
+                        ],
+                        "os": [
+                          "linux_x86",
+                          "linux_ppcle",
+                          "linux_s390",
+                          "linux_arm"
+                        ],
+                        "access": 644,
+                        "owner": "root:<agent_group>"
+                      },
+                      {
+                        "dir": "tzdata",
+                        "skipUnexpectedFiles": true,
+                        "access": 755,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>",
+                          "aix_ppc": "root:system"
+                        }
+                      },
+                      {
+                        "dir": "dsruntime",
+                        "skipInContainerOrDisabledAutoInjection": true,
+                        "access": 755,
+                        "owner": "root:<agent_group>",
+                        "os": "linux_x86",
+                        "contains": [
+                          {
+                            "dir": "python3.10",
+                            "access": 755,
+                            "owner": "root:<agent_group>",
+                            "contains": [
+                              {
+                                "dir": "lib",
+                                "skipUnexpectedFiles": true,
+                                "access": 755,
+                                "owner": "root:<agent_group>",
+                                "contains": [
+                                  {
+                                    "link": "libpython3.so",
+                                    "access": 644,
+                                    "owner": "root:<agent_group>"
+                                  },
+                                  {
+                                    "file": "libpython3.10.so.1.0",
+                                    "access": 644,
+                                    "owner": "root:<agent_group>"
+                                  }
+                                ]
+                              },
+                              {
+                                "dir": "bin",
+                                "skipUnexpectedFiles": true,
+                                "access": 755,
+                                "owner": "root:<agent_group>"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "file": "THIRDPARTYLICENSEREADME.txt",
+                    "access": 644,
+                    "owner": {
+                      "linux_x86": "root:<agent_group>",
+                      "linux_ppcle": "root:<agent_group>",
+                      "aix_ppc": "root:system",
+                      "linux_s390": "root:<agent_group>",
+                      "linux_arm": "root:<agent_group>"
+                    }
+                  },
+                  {
+                    "dir": "tools",
+                    "access": 755,
+                    "owner": {
+                      "linux_x86": "root:<agent_group>",
+                      "linux_ppcle": "root:<agent_group>",
+                      "aix_ppc": "root:system",
+                      "linux_s390": "root:<agent_group>",
+                      "linux_arm": "root:<agent_group>"
+                    },
+                    "contains": [
+                      {
+                        "dir": "lib64",
+                        "access": 755,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "aix_ppc": "root:system",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        },
+                        "contains": [
+                          {
+                            "file": "oneagentctl",
+                            "access": 750,
+                            "owner": {
+                              "linux_x86": "root:<agent_group>",
+                              "linux_ppcle": "root:<agent_group>",
+                              "aix_ppc": "root:system",
+                              "linux_s390": "root:<agent_group>",
+                              "linux_arm": "root:<agent_group>"
+                            }
+                          },
+                          {
+                            "file": "dynatrace_ingest",
+                            "access": 755,
+                            "owner": {
+                              "linux_x86": "root:<agent_group>",
+                              "linux_ppcle": "root:<agent_group>",
+                              "linux_s390": "root:<agent_group>",
+                              "linux_arm": "root:<agent_group>",
+                              "aix_ppc": "root:system"
+                            }
+                          },
+                          {
+                            "file": [
+                              "dynatrace_ingest.hmac",
+                              "oneagentctl.hmac"
+                            ],
+                            "access": 644,
+                            "owner": {
+                              "linux_x86": "root:<agent_group>",
+                              "linux_ppcle": "root:<agent_group>",
+                              "aix_ppc": "root:system",
+                              "linux_s390": "root:<agent_group>",
+                              "linux_arm": "root:<agent_group>"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "dir": "data",
+                        "access": 755,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "aix_ppc": "root:system",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        },
+                        "contains": [
+                          {
+                            "file": [
+                              "expected_file_structure.json",
+                              "expected_file_checksums_checklist"
+                            ],
+                            "access": 644,
+                            "owner": {
+                              "linux_x86": "root:<agent_group>",
+                              "linux_ppcle": "root:<agent_group>",
+                              "aix_ppc": "root:system",
+                              "linux_s390": "root:<agent_group>",
+                              "linux_arm": "root:<agent_group>"
+                            }
+                          },
+                          {
+                            "file": "linux_distro_release_strings",
+                            "access": 644,
+                            "os": [
+                              "linux_x86",
+                              "linux_ppcle",
+                              "linux_s390",
+                              "linux_arm"
+                            ],
+                            "owner": "root:<agent_group>"
+                          }
+                        ]
+                      },
+                      {
+                        "link": "oneagentctl",
+                        "access": 750,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "aix_ppc": "root:system",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "link": "dynatrace_ingest",
+                        "access": 755,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>",
+                          "aix_ppc": "root:system"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "file": "uninstall.sh",
+                    "access": 750,
+                    "owner": {
+                      "linux_x86": "root:<agent_group>",
+                      "linux_ppcle": "root:<agent_group>",
+                      "aix_ppc": "root:system",
+                      "linux_s390": "root:<agent_group>",
+                      "linux_arm": "root:<agent_group>"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "dir": "/var",
+    "access": 755,
+    "skipUnexpectedFiles": true,
+    "contains": [
+      {
+        "dir": "lib",
+        "access": 755,
+        "skipUnexpectedFiles": true,
+        "contains": [
+          {
+            "dir": "dynatrace",
+            "skipUnexpectedFiles": true,
+            "access": 755,
+            "contains": [
+              {
+                "dir": "oneagent",
+                "access": 755,
+                "owner": {
+                  "linux_x86": [
+                    "root:<agent_group>",
+                    "root:root"
+                  ],
+                  "linux_ppcle": [
+                    "root:<agent_group>",
+                    "root:root"
+                  ],
+                  "aix_ppc": "root:system",
+                  "linux_s390": [
+                    "root:<agent_group>",
+                    "root:root"
+                  ],
+                  "linux_arm": [
+                    "root:<agent_group>",
+                    "root:root"
+                  ]
+                },
+                "contains": [
+                  {
+                    "dir": "agent",
+                    "access": 755,
+                    "owner": {
+                      "linux_x86": [
+                        "root:<agent_group>",
+                        "root:root"
+                      ],
+                      "linux_ppcle": [
+                        "root:<agent_group>",
+                        "root:root"
+                      ],
+                      "aix_ppc": "root:system",
+                      "linux_s390": [
+                        "root:<agent_group>",
+                        "root:root"
+                      ],
+                      "linux_arm": [
+                        "root:<agent_group>",
+                        "root:root"
+                      ]
+                    },
+                    "contains": [
+                      {
+                        "dir": "downloads",
+                        "access": 775,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "aix_ppc": "root:system",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "dir": "customkeys",
+                        "access": 755,
+                        "owner": {
+                          "linux_x86": [
+                            "root:<agent_group>",
+                            "root:root"
+                          ],
+                          "linux_ppcle": [
+                            "root:<agent_group>",
+                            "root:root"
+                          ],
+                          "aix_ppc": "root:system",
+                          "linux_s390": [
+                            "root:<agent_group>",
+                            "root:root"
+                          ],
+                          "linux_arm": [
+                            "root:<agent_group>",
+                            "root:root"
+                          ]
+                        }
+                      },
+                      {
+                        "dir": "config",
+                        "skipUnexpectedFiles": true,
+                        "access": 775,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "aix_ppc": "root:system",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        },
+                        "contains": [
+                          {
+                            "file": [
+                              "watchdogruntime.conf"
+                            ],
+                            "access": 664,
+                            "owner": {
+                              "linux_x86": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "linux_ppcle": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "aix_ppc": "root:system",
+                              "linux_s390": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "linux_arm": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ]
+                            }
+                          },
+                          {
+                            "file": [
+                              "deployment.conf"
+                            ],
+                            "access": 660,
+                            "owner": {
+                              "linux_x86": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "linux_ppcle": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "aix_ppc": "root:system",
+                              "linux_s390": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "linux_arm": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ]
+                            }
+                          },
+                          {
+                            "file": "monitoringmode.conf",
+                            "access": 664,
+                            "owner": {
+                              "linux_x86": [
+                                "root:root",
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "linux_ppcle": [
+                                "root:root",
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "aix_ppc": "root:system",
+                              "linux_s390": [
+                                "root:root",
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "linux_arm": [
+                                "root:root",
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ]
+                            }
+                          },
+                          {
+                            "file": [
+                              "watchdoguserconfig.conf",
+                              "installation.conf"
+                            ],
+                            "access": 644,
+                            "owner": {
+                              "linux_x86": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "linux_ppcle": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "aix_ppc": "root:system",
+                              "linux_s390": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "linux_arm": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ]
+                            }
+                          },
+                          {
+                            "file": "ruxitagentloganalytics.conf",
+                            "os": [
+                              "linux_x86",
+                              "linux_ppcle",
+                              "linux_arm",
+                              "aix_ppc"
+                            ]
+                          },
+                          {
+                            "dir": "logmodule",
+                            "skipUnexpectedFiles": true,
+                            "access": 775,
+                            "owner": {
+                              "linux_x86": "root:<agent_group>",
+                              "linux_ppcle": "root:<agent_group>",
+                              "linux_arm": "root:<agent_group>",
+                              "aix_ppc": "root:system"
+                            },
+                            "os": [
+                              "linux_x86",
+                              "linux_ppcle",
+                              "linux_arm",
+                              "aix_ppc"
+                            ]
+                          },
+                          {
+                            "dir": "certificates",
+                            "skipUnexpectedFiles": true,
+                            "access": 775,
+                            "owner": {
+                              "linux_x86": "root:<agent_group>",
+                              "aix_ppc": "root:system"
+                            },
+                            "os": [
+                              "linux_x86",
+                              "aix_ppc"
+                            ]
+                          },
+                          {
+                            "file": "ruxitagentproc.conf",
+                            "access": 644
+                          },
+                          {
+                            "file": "agent.state",
+                            "access": 644,
+                            "owner": {
+                              "linux_x86": [
+                                "root:root",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "linux_ppcle": [
+                                "root:root",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "aix_ppc": "root:system",
+                              "linux_s390": [
+                                "root:root",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "linux_arm": [
+                                "root:root",
+                                "<agent_user>:<agent_group>"
+                              ]
+                            }
+                          },
+                          {
+                            "file": "extensionsuser.conf",
+                            "os": [
+                              "linux_x86",
+                              "aix_ppc"
+                            ],
+                            "access": 644,
+                            "owner": {
+                              "linux_x86": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "aix_ppc": "root:system"
+                            }
+                          },
+                          {
+                            "file": "pluginuser.conf",
+                            "os": [
+                              "linux_x86",
+                              "linux_ppcle"
+                            ],
+                            "access": 644,
+                            "owner": {
+                              "linux_x86": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ],
+                              "linux_ppcle": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ]
+                            }
+                          },
+                          {
+                            "file": "container.conf",
+                            "ignoreInContainer": true,
+                            "os": [
+                              "linux_x86"
+                            ],
+                            "access": 444,
+                            "owner": {
+                              "linux_x86": [
+                                "root:<agent_group>",
+                                "<agent_user>:<agent_group>"
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "dir": "runtime",
+                        "skipUnexpectedFiles": true,
+                        "access": 1777,
+                        "owner": {
+                          "linux_x86": "root:root",
+                          "linux_ppcle": "root:root",
+                          "aix_ppc": "root:system",
+                          "linux_s390": "root:root",
+                          "linux_arm": "root:root"
+                        },
+                        "contains": [
+                          {
+                            "file": "expected_file_checksums",
+                            "access": 644,
+                            "owner": {
+                              "linux_x86": "<agent_user>:<agent_group>",
+                              "linux_ppcle": "<agent_user>:<agent_group>",
+                              "aix_ppc": "root:system",
+                              "linux_s390": "<agent_user>:<agent_group>",
+                              "linux_arm": "<agent_user>:<agent_group>"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "dir": "watchdog",
+                        "skipUnexpectedFiles": true,
+                        "access": 770,
+                        "owner": {
+                          "linux_x86": "root:<agent_group>",
+                          "linux_ppcle": "root:<agent_group>",
+                          "aix_ppc": "root:system",
+                          "linux_s390": "root:<agent_group>",
+                          "linux_arm": "root:<agent_group>"
+                        }
+                      },
+                      {
+                        "dir": "installer_tmp",
+                        "skipUnexpectedFiles": true,
+                        "access": 775,
+                        "owner": {
+                          "linux_x86": [
+                            "root:<agent_group>"
+                          ],
+                          "linux_ppcle": [
+                            "root:<agent_group>"
+                          ],
+                          "aix_ppc": "root:system",
+                          "linux_s390": [
+                            "root:<agent_group>"
+                          ],
+                          "linux_arm": [
+                            "root:<agent_group>"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "dir": "enrichment",
+                "skipUnexpectedFiles": true,
+                "access": 775,
+                "owner": {
+                  "linux_x86": "root:<agent_group>",
+                  "linux_ppcle": "root:<agent_group>",
+                  "aix_ppc": "root:system",
+                  "linux_s390": "root:<agent_group>",
+                  "linux_arm": "root:<agent_group>"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "globallyTraversableDir": "<log>",
+    "skipUnexpectedFiles": "recursive",
+    "access": 1777,
+    "owner": {
+      "linux_x86": "root:<agent_group>",
+      "linux_ppcle": "root:<agent_group>",
+      "aix_ppc": "root:system",
+      "linux_s390": "root:<agent_group>",
+      "linux_arm": "root:<agent_group>"
+    },
+    "contains": [
+      {
+        "dir": [
+          "installer",
+          "os",
+          "network",
+          "watchdog"
+        ],
+        "access": 775,
+        "owner": {
+          "linux_x86": "root:<agent_group>",
+          "linux_ppcle": "root:<agent_group>",
+          "aix_ppc": "root:system",
+          "linux_s390": "root:<agent_group>",
+          "linux_arm": "root:<agent_group>"
+        }
+      },
+      {
+        "dir": [
+          "loganalytics"
+        ],
+        "access": 775,
+        "os": [
+          "linux_x86",
+          "linux_ppcle",
+          "linux_arm",
+          "aix_ppc"
+        ],
+        "owner": {
+          "linux_x86": "root:<agent_group>",
+          "linux_ppcle": "root:<agent_group>",
+          "linux_arm": "root:<agent_group>",
+          "aix_ppc": "root:system"
+        }
+      },
+      {
+        "dir": [
+          "plugin"
+        ],
+        "access": 775,
+        "os": [
+          "linux_x86",
+          "linux_ppcle"
+        ],
+        "owner": "root:<agent_group>"
+      },
+      {
+        "dir": "extensions",
+        "access": 775,
+        "os": [
+          "linux_x86",
+          "aix_ppc"
+        ],
+        "owner": {
+          "linux_x86": "root:<agent_group>",
+          "aix_ppc": "root:system"
+        }
+      },
+      {
+        "dir": "process",
+        "access": 1777,
+        "owner": {
+          "linux_x86": "root:<agent_group>",
+          "linux_ppcle": "root:<agent_group>",
+          "aix_ppc": "root:system",
+          "linux_s390": "root:<agent_group>",
+          "linux_arm": "root:<agent_group>"
+        }
+      },
+      {
+        "dir": "dumpproc",
+        "access": 1777,
+        "os": [
+          "linux_x86",
+          "linux_ppcle",
+          "linux_s390",
+          "linux_arm"
+        ],
+        "owner": {
+          "linux_x86": "root:<agent_group>",
+          "linux_ppcle": "root:<agent_group>",
+          "linux_s390": "root:<agent_group>",
+          "linux_arm": "root:<agent_group>"
+        }
+      }
+    ]
+  },
+  {
+    "dir": "<datastorage>",
+    "access": 755,
+    "contains": [
+      {
+        "dir": [
+          "crashreports",
+          "memorydump",
+          "supportalerts"
+        ],
+        "skipUnexpectedFiles": true,
+        "access": 1777
+      }
+    ]
+  },
+  {
+    "file": "/usr/lib/drivers/oneagentkmod",
+    "os": "aix_ppc",
+    "access": 644,
+    "owner": "root:system"
+  },
+  {
+    "file": "/usr/sbin/oneagentkmodloader",
+    "os": "aix_ppc",
+    "access": 750,
+    "owner": "root:system"
+  }
+]

@@ -1,0 +1,18 @@
+{   
+    "cmd" : [ ".*" ],    
+    "hook" : "/opt/dynatrace/oneagent/agent/lib64/oneagenthelper",   
+    "arguments": [ 
+        "--oci-hook", 
+        "--installdirhost",
+        "/opt/dynatrace/oneagent",
+        "--configdirhost",
+        "/var/lib/dynatrace/oneagent/agent/config",
+        "--datastoragedirhost",
+        "/var/lib/dynatrace/oneagent/datastorage",
+        "--logdirhost",
+        "/var/log/dynatrace/oneagent",
+        "--enrichmentdirhost",
+        "/var/lib/dynatrace/enrichment"
+    ],
+    "stage" : [ "prestart" ]
+}
